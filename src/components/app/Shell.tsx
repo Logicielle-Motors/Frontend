@@ -7,13 +7,6 @@ import { cn } from "@/lib/utils";
 const NAV = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/pos", label: "Point de vente (POS)", icon: ShoppingCart },
-  { to: "/stock", label: "Gestion du stock", icon: Package },
-  { to: "/inventaire", label: "Inventaire", icon: ClipboardCheck },
-  { to: "/fournisseurs", label: "Fournisseurs et appro.", icon: Truck },
-  { to: "/ventes", label: "Historique des ventes", icon: History },
-  { to: "/rapports", label: "Rapports financiers", icon: BarChart3 },
-  { to: "/depenses", label: "Gestion des dépenses", icon: Wallet },
-  { to: "/parametres", label: "Paramètres", icon: Settings },
 ] as const;
 
 export function Shell() {

@@ -38,7 +38,7 @@ function ReceiptBody({ sale }: { sale: Sale }) {
 export function ReceiptModal({ sale, onClose }: { sale: Sale | null; onClose: () => void }) {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
-  const print = (fmt: "a4" | "80mm") => { document.body.dataset.print = fmt; setTimeout(() => window.print(), 50); };
+  const print = (fmt: "a4" | "80mm") => { document.body.dataset["print"] = fmt; setTimeout(() => window.print(), 50); };
   return (
     <>
       <Modal open={!!sale} onClose={onClose} title="Facture">
