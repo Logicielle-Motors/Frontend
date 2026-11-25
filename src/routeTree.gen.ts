@@ -12,7 +12,14 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as AppDashboardRouteImport } from './routes/_app/dashboard'
+import { Route as AppDepensesRouteImport } from './routes/_app/depenses'
+import { Route as AppFournisseursRouteImport } from './routes/_app/fournisseurs'
+import { Route as AppHistoriqueRouteImport } from './routes/_app/historique'
+import { Route as AppInventaireRouteImport } from './routes/_app/inventaire'
+import { Route as AppParametresRouteImport } from './routes/_app/parametres'
 import { Route as AppPosRouteImport } from './routes/_app/pos'
+import { Route as AppRapportsRouteImport } from './routes/_app/rapports'
+import { Route as AppStockRouteImport } from './routes/_app/stock'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +35,123 @@ const AppDashboardRoute = AppDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AppRoute,
 } as any)
+const AppDepensesRoute = AppDepensesRouteImport.update({
+  id: '/depenses',
+  path: '/depenses',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppFournisseursRoute = AppFournisseursRouteImport.update({
+  id: '/fournisseurs',
+  path: '/fournisseurs',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppHistoriqueRoute = AppHistoriqueRouteImport.update({
+  id: '/historique',
+  path: '/historique',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppInventaireRoute = AppInventaireRouteImport.update({
+  id: '/inventaire',
+  path: '/inventaire',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppParametresRoute = AppParametresRouteImport.update({
+  id: '/parametres',
+  path: '/parametres',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppPosRoute = AppPosRouteImport.update({
   id: '/pos',
   path: '/pos',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRapportsRoute = AppRapportsRouteImport.update({
+  id: '/rapports',
+  path: '/rapports',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppStockRoute = AppStockRouteImport.update({
+  id: '/stock',
+  path: '/stock',
   getParentRoute: () => AppRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof AppDashboardRoute
+  '/depenses': typeof AppDepensesRoute
+  '/fournisseurs': typeof AppFournisseursRoute
+  '/historique': typeof AppHistoriqueRoute
+  '/inventaire': typeof AppInventaireRoute
+  '/parametres': typeof AppParametresRoute
   '/pos': typeof AppPosRoute
+  '/rapports': typeof AppRapportsRoute
+  '/stock': typeof AppStockRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof AppDashboardRoute
+  '/depenses': typeof AppDepensesRoute
+  '/fournisseurs': typeof AppFournisseursRoute
+  '/historique': typeof AppHistoriqueRoute
+  '/inventaire': typeof AppInventaireRoute
+  '/parametres': typeof AppParametresRoute
   '/pos': typeof AppPosRoute
+  '/rapports': typeof AppRapportsRoute
+  '/stock': typeof AppStockRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_app': typeof AppRouteWithChildren
   '/_app/dashboard': typeof AppDashboardRoute
+  '/_app/depenses': typeof AppDepensesRoute
+  '/_app/fournisseurs': typeof AppFournisseursRoute
+  '/_app/historique': typeof AppHistoriqueRoute
+  '/_app/inventaire': typeof AppInventaireRoute
+  '/_app/parametres': typeof AppParametresRoute
   '/_app/pos': typeof AppPosRoute
+  '/_app/rapports': typeof AppRapportsRoute
+  '/_app/stock': typeof AppStockRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/pos'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/depenses'
+    | '/fournisseurs'
+    | '/historique'
+    | '/inventaire'
+    | '/parametres'
+    | '/pos'
+    | '/rapports'
+    | '/stock'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/pos'
-  id: '__root__' | '/' | '/_app' | '/_app/dashboard' | '/_app/pos'
+  to:
+    | '/'
+    | '/dashboard'
+    | '/depenses'
+    | '/fournisseurs'
+    | '/historique'
+    | '/inventaire'
+    | '/parametres'
+    | '/pos'
+    | '/rapports'
+    | '/stock'
+  id:
+    | '__root__'
+    | '/'
+    | '/_app'
+    | '/_app/dashboard'
+    | '/_app/depenses'
+    | '/_app/fournisseurs'
+    | '/_app/historique'
+    | '/_app/inventaire'
+    | '/_app/parametres'
+    | '/_app/pos'
+    | '/_app/rapports'
+    | '/_app/stock'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -87,6 +182,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDashboardRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/depenses': {
+      id: '/_app/depenses'
+      path: '/depenses'
+      fullPath: '/depenses'
+      preLoaderRoute: typeof AppDepensesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/fournisseurs': {
+      id: '/_app/fournisseurs'
+      path: '/fournisseurs'
+      fullPath: '/fournisseurs'
+      preLoaderRoute: typeof AppFournisseursRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/historique': {
+      id: '/_app/historique'
+      path: '/historique'
+      fullPath: '/historique'
+      preLoaderRoute: typeof AppHistoriqueRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/inventaire': {
+      id: '/_app/inventaire'
+      path: '/inventaire'
+      fullPath: '/inventaire'
+      preLoaderRoute: typeof AppInventaireRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/parametres': {
+      id: '/_app/parametres'
+      path: '/parametres'
+      fullPath: '/parametres'
+      preLoaderRoute: typeof AppParametresRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/pos': {
       id: '/_app/pos'
       path: '/pos'
@@ -94,17 +224,45 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppPosRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/rapports': {
+      id: '/_app/rapports'
+      path: '/rapports'
+      fullPath: '/rapports'
+      preLoaderRoute: typeof AppRapportsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/stock': {
+      id: '/_app/stock'
+      path: '/stock'
+      fullPath: '/stock'
+      preLoaderRoute: typeof AppStockRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
+  AppDepensesRoute: typeof AppDepensesRoute
+  AppFournisseursRoute: typeof AppFournisseursRoute
+  AppHistoriqueRoute: typeof AppHistoriqueRoute
+  AppInventaireRoute: typeof AppInventaireRoute
+  AppParametresRoute: typeof AppParametresRoute
   AppPosRoute: typeof AppPosRoute
+  AppRapportsRoute: typeof AppRapportsRoute
+  AppStockRoute: typeof AppStockRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
+  AppDepensesRoute: AppDepensesRoute,
+  AppFournisseursRoute: AppFournisseursRoute,
+  AppHistoriqueRoute: AppHistoriqueRoute,
+  AppInventaireRoute: AppInventaireRoute,
+  AppParametresRoute: AppParametresRoute,
   AppPosRoute: AppPosRoute,
+  AppRapportsRoute: AppRapportsRoute,
+  AppStockRoute: AppStockRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
