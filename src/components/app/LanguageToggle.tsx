@@ -39,8 +39,8 @@ export function LanguageToggle({ language, onChange, label }: LanguageToggleProp
           aria-pressed={language === value}
           onClick={() => onChange(value)}
           className={cn(
-            "grid size-8 place-items-center rounded-md border transition hover:bg-muted",
-            language === value ? "border-primary bg-primary/10" : "border-transparent",
+            "grid size-8 place-items-center rounded-md transition hover:bg-muted",
+            language === value && "bg-muted",
           )}
         >
           <Flag language={value} />
