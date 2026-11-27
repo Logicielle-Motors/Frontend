@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { actions, getDB, useDB } from "@/lib/store";
 import { dt } from "@/lib/format";
 import { Btn, Field, PageHeader, Panel } from "@/components/app/kit";
+import { LanguageToggle } from "@/components/app/LanguageToggle";
 
 export const Route = createFileRoute("/_app/parametres")({ head: () => ({ meta: [{ title: "Logicielle Motors" }] }), component: Par });
 
@@ -23,7 +24,7 @@ function Par() {
           <Field label="Nom du magasin"><input className="field" value={s.shopName} onChange={(e) => setS({ ...s, shopName: e.target.value })} /></Field>
           <Field label="Adresse"><input className="field" value={s.address} onChange={(e) => setS({ ...s, address: e.target.value })} /></Field>
           <Field label="Téléphone"><input className="field" value={s.phone} onChange={(e) => setS({ ...s, phone: e.target.value })} /></Field>
-          <Field label="Langue / Fiteny"><select className="field" value={s.language} onChange={(e) => setS({ ...s, language: e.target.value as "fr" | "mg" })}><option value="fr">Français</option><option value="mg">Malagasy</option></select></Field>
+          <Field label="Langue / Fiteny"><LanguageToggle language={s.language} label="Langue / Fiteny" onChange={(language) => { setS({ ...s, language }); actions.saveSettings({ language }); }} /></Field>
           <Field label="Identifiant"><input className="field" value={s.username} onChange={(e) => setS({ ...s, username: e.target.value })} /></Field>
           <Field label="Mot de passe"><input className="field" type="password" value={s.password} onChange={(e) => setS({ ...s, password: e.target.value })} /></Field>
           <Field label="Catégories de produits (séparées par des virgules)"><textarea className="field !h-24 py-2" value={s.categories} onChange={(e) => setS({ ...s, categories: e.target.value })} /></Field>
