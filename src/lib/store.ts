@@ -16,7 +16,7 @@ export type Supplier = { id: string; name: string; phone: string; email: string;
 export type Purchase = { id: string; supplierId: string; productId: string; productName: string; qty: number; unitCost: number; date: string };
 export type InventoryLine = { productId: string; name: string; theo: number; counted: number };
 export type Inventory = { id: string; date: string; lines: InventoryLine[] };
-export type Settings = { shopName: string; address: string; phone: string; username: string; password: string; categories: string[]; expenseCategories: string[] };
+export type Settings = { shopName: string; address: string; phone: string; username: string; password: string; categories: string[]; expenseCategories: string[]; language: "fr" | "mg"; theme: "light" | "dark" };
 export type DB = {
   version: 1; products: Product[]; movements: Movement[]; sales: Sale[]; expenses: Expense[]; suppliers: Supplier[];
   purchases: Purchase[]; inventories: Inventory[]; settings: Settings; invoiceCounter: number;
@@ -32,7 +32,7 @@ export const DEFAULT_CATEGORIES = ["Piston","Segment","Cylindre","Vilebrequin","
 export function emptyDB(): DB {
   return {
     version: 1, products: [], movements: [], sales: [], expenses: [], suppliers: [], purchases: [], inventories: [], invoiceCounter: 0,
-    settings: { shopName: "Moto Pièces Pro", address: "Antananarivo, Madagascar", phone: "+261 34 00 000 00", username: "admin", password: "admin123",
+    settings: { shopName: "Moto Pièces Pro", address: "Antananarivo, Madagascar", phone: "+261 34 00 000 00", username: "admin", password: "admin123", language: "fr", theme: "light",
       categories: [...DEFAULT_CATEGORIES], expenseCategories: ["Loyer","Électricité","Transport","Achat de matériel","Autres dépenses"] },
   };
 }
@@ -64,7 +64,10 @@ function load(): DB {
   if (db) return db;
   try {
     const raw = localStorage.getItem(KEY);
-    db = raw ? { ...emptyDB(), ...(JSON.parse(raw) as DB) } : seed();
+    if (raw) {
+      const saved = JSON.parse(raw) as Partial<DB>;
+      db = { ...emptyDB(), ...saved, settings: { ...emptyDB().settings, ...saved.settings } };
+    } else db = seed();
   } catch { db = seed(); }
   if (!localStorage.getItem(KEY)) localStorage.setItem(KEY, JSON.stringify(db));
   return db;
@@ -189,7 +192,7 @@ export const actions = {
     });
   },
   saveSettings(s: Partial<Settings>) { commit((d) => { Object.assign(d.settings, s); }); },
-  restore(data: DB) { commit((d) => { if (!data || !Array.isArray(data.products)) throw new Error("Fichier de sauvegarde invalide"); Object.assign(d, emptyDB(), data); }); },
+  restore(data: DB) { commit((d) => { if (!data || !Array.isArray(data.products)) throw new Error("Fichier de sauvegarde invalide"); Object.assign(d, emptyDB(), data, { settings: { ...emptyDB().settings, ...data.settings } }); }); },
   restoreAuto() { const b = localStorage.getItem(BACKUP_KEY); if (!b) throw new Error("Aucune sauvegarde automatique"); actions.restore((JSON.parse(b) as { data: DB }).data); },
   autoBackupInfo(): string | null { try { const b = localStorage.getItem(BACKUP_KEY); return b ? (JSON.parse(b) as { date: string }).date : null; } catch { return null; } },
   reset() { commit((d) => { const keep = d.settings; Object.assign(d, emptyDB(), { settings: keep }); }); },
