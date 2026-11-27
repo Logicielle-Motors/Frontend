@@ -5,7 +5,7 @@ import { ar, downloadCSV, endOfDay, startOfDay, toInputDate } from "@/lib/format
 import { Btn, Field, PageHeader, Panel, Stat } from "@/components/app/kit";
 import { TrendingUp, Coins, Receipt, PiggyBank, ShoppingBag, Package } from "lucide-react";
 
-export const Route = createFileRoute("/_app/rapports")({ head: () => ({ meta: [{ title: "Rapports financiers – Moto Pièces Pro" }] }), component: Rep });
+export const Route = createFileRoute("/_app/rapports")({ head: () => ({ meta: [{ title: "Logicielle Motors" }] }), component: Rep });
 
 function Rep() {
   const d = useDB();

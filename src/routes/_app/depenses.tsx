@@ -6,7 +6,7 @@ import { actions, useDB, type Expense } from "@/lib/store";
 import { ar, dOnly, toInputDate } from "@/lib/format";
 import { Btn, Empty, Field, Modal, PageHeader, Panel } from "@/components/app/kit";
 
-export const Route = createFileRoute("/_app/depenses")({ head: () => ({ meta: [{ title: "Dépenses – Moto Pièces Pro" }] }), component: Dep });
+export const Route = createFileRoute("/_app/depenses")({ head: () => ({ meta: [{ title: "Logicielle Motors" }] }), component: Dep });
 type F = Omit<Expense, "id"> & { id?: string };
 
 function Dep() {

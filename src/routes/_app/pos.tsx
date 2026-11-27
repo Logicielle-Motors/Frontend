@@ -8,7 +8,7 @@ import { Btn, Empty, PageHeader, Panel } from "@/components/app/kit";
 import { ReceiptModal } from "@/components/app/Receipt";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/_app/pos")({ head: () => ({ meta: [{ title: "Point de vente – Moto Pièces Pro" }] }), component: POS });
+export const Route = createFileRoute("/_app/pos")({ head: () => ({ meta: [{ title: "Logicielle Motors" }] }), component: POS });
 
 function POS() {
   const d = useDB();

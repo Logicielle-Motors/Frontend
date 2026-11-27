@@ -62,12 +62,14 @@ export function Shell() {
           <span className="hidden font-medium lg:block">{settings.shopName}</span>
           <time className="absolute left-1/2 -translate-x-1/2 font-semibold tabular-nums text-sm sm:text-base">{time}</time>
           <div className="ml-auto flex items-center gap-2 sm:gap-4">
-            <label className="sr-only" htmlFor="shell-language">{isMg ? "Fiteny" : "Langue"}</label>
-            <select id="shell-language" className="h-9 rounded-md border border-input bg-background px-2 text-sm" value={settings.language}
-              onChange={(e) => actions.saveSettings({ language: e.target.value as "fr" | "mg" })}>
-              <option value="fr">FR</option>
-              <option value="mg">MG</option>
-            </select>
+            <div role="group" aria-label={isMg ? "Fidio ny fiteny" : "Choisir la langue"} className="flex items-center rounded-md border border-border p-0.5">
+              <button type="button" aria-label="Français" title="Français" aria-pressed={settings.language === "fr"}
+                onClick={() => actions.saveSettings({ language: "fr" })}
+                className={cn("grid size-8 place-items-center rounded text-lg leading-none", settings.language === "fr" ? "bg-primary/10 ring-1 ring-primary" : "hover:bg-muted")}>🇫🇷</button>
+              <button type="button" aria-label="Malagasy" title="Malagasy" aria-pressed={settings.language === "mg"}
+                onClick={() => actions.saveSettings({ language: "mg" })}
+                className={cn("grid size-8 place-items-center rounded text-lg leading-none", settings.language === "mg" ? "bg-primary/10 ring-1 ring-primary" : "hover:bg-muted")}>🇲🇬</button>
+            </div>
             <button type="button" aria-label={settings.theme === "dark" ? (isMg ? "Alefaso ny mazava" : "Activer le mode clair") : (isMg ? "Alefaso ny alina" : "Activer le mode nuit")}
               title={settings.theme === "dark" ? (isMg ? "Mode mazava" : "Mode clair") : (isMg ? "Mode alina" : "Mode nuit")}
               onClick={() => actions.saveSettings({ theme: settings.theme === "dark" ? "light" : "dark" })}

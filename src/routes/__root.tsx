@@ -82,7 +82,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Moto Pièces Pro – Gestion de stock & caisse" },
+      { title: "Logicielle Motors" },
       { name: "description", content: "Logiciel de gestion de stock et point de vente pour pièces moto et scooter." },
       { name: "author", content: "Lovable" },
       { property: "og:title", content: "Moto Pièces Pro" },

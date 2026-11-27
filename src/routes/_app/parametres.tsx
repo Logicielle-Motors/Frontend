@@ -5,7 +5,7 @@ import { actions, getDB, useDB } from "@/lib/store";
 import { dt } from "@/lib/format";
 import { Btn, Field, PageHeader, Panel } from "@/components/app/kit";
 
-export const Route = createFileRoute("/_app/parametres")({ head: () => ({ meta: [{ title: "Paramètres – Moto Pièces Pro" }] }), component: Par });
+export const Route = createFileRoute("/_app/parametres")({ head: () => ({ meta: [{ title: "Logicielle Motors" }] }), component: Par });
 
 function Par() {
   const { settings } = useDB();

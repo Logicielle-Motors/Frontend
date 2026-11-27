@@ -6,7 +6,7 @@ import { computeStats, useDB } from "@/lib/store";
 import { ar, endOfDay, startOfDay } from "@/lib/format";
 import { PageHeader, Panel, Stat } from "@/components/app/kit";
 
-export const Route = createFileRoute("/_app/dashboard")({ head: () => ({ meta: [{ title: "Dashboard – Moto Pièces Pro" }] }), component: Dashboard });
+export const Route = createFileRoute("/_app/dashboard")({ head: () => ({ meta: [{ title: "Logicielle Motors" }] }), component: Dashboard });
 
 export const tip = { contentStyle: { background: "var(--popover)", border: "1px solid var(--border)", borderRadius: 10 }, formatter: (v: number) => ar(v) };
 

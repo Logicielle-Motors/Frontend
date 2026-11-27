@@ -6,7 +6,7 @@ import { actions, useDB, type Product } from "@/lib/store";
 import { ar } from "@/lib/format";
 import { Badge, Btn, Empty, Field, Modal, PageHeader, Panel } from "@/components/app/kit";
 
-export const Route = createFileRoute("/_app/stock")({ head: () => ({ meta: [{ title: "Gestion du stock – Moto Pièces Pro" }] }), component: Stock });
+export const Route = createFileRoute("/_app/stock")({ head: () => ({ meta: [{ title: "Logicielle Motors" }] }), component: Stock });
 
 type Form = Omit<Product, "id" | "createdAt"> & { id?: string };
 const blank = (): Form => ({ name: "", ref: "", category: "", brand: "", model: "", buyPrice: 0, sellPrice: 0, qty: 0, minQty: 1, supplierId: "" });

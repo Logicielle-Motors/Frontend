@@ -5,7 +5,7 @@ import { actions, useDB } from "@/lib/store";
 import { dt } from "@/lib/format";
 import { Badge, Btn, Empty, PageHeader, Panel } from "@/components/app/kit";
 
-export const Route = createFileRoute("/_app/inventaire")({ head: () => ({ meta: [{ title: "Inventaire – Moto Pièces Pro" }] }), component: Inv });
+export const Route = createFileRoute("/_app/inventaire")({ head: () => ({ meta: [{ title: "Logicielle Motors" }] }), component: Inv });
 
 function Inv() {
   const d = useDB();

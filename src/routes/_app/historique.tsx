@@ -7,7 +7,7 @@ import { ar, dt, downloadCSV } from "@/lib/format";
 import { Badge, Btn, Empty, PageHeader, Panel } from "@/components/app/kit";
 import { ReceiptModal } from "@/components/app/Receipt";
 
-export const Route = createFileRoute("/_app/historique")({ head: () => ({ meta: [{ title: "Historique des ventes – Moto Pièces Pro" }] }), component: Hist });
+export const Route = createFileRoute("/_app/historique")({ head: () => ({ meta: [{ title: "Logicielle Motors" }] }), component: Hist });
 
 function Hist() {
   const d = useDB();

@@ -6,7 +6,7 @@ import { actions, useDB, type Supplier } from "@/lib/store";
 import { ar, dt } from "@/lib/format";
 import { Btn, Empty, Field, Modal, PageHeader, Panel } from "@/components/app/kit";
 
-export const Route = createFileRoute("/_app/fournisseurs")({ head: () => ({ meta: [{ title: "Fournisseurs – Moto Pièces Pro" }] }), component: Sup });
+export const Route = createFileRoute("/_app/fournisseurs")({ head: () => ({ meta: [{ title: "Logicielle Motors" }] }), component: Sup });
 type F = Omit<Supplier, "id" | "createdAt"> & { id?: string };
 
 function Sup() {

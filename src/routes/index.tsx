@@ -6,7 +6,7 @@ import { auth } from "@/lib/store";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
-    { title: "Connexion – Moto Pièces Pro" },
+    { title: "Logicielle Motors" },
     { name: "description", content: "Connectez-vous à votre logiciel de gestion de stock et de caisse." },
     { property: "og:title", content: "Connexion – Moto Pièces Pro" },
     { property: "og:description", content: "Gestion de stock et point de vente pour pièces moto et scooter." },
@@ -37,16 +37,14 @@ function Login() {
           <div className="relative"><Lock className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
             <input className="field !h-12 !px-10" type={show ? "text" : "password"} placeholder="Mot de passe" value={p} onChange={(e) => setP(e.target.value)} />
             <button type="button" onClick={() => setShow(!show)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" aria-label="Afficher">{show ? <EyeOff className="size-4" /> : <Eye className="size-4" />}</button></div>
-          <div className="flex items-center justify-between text-sm">
+          <div className="flex items-center text-sm">
             <label className="flex items-center gap-2"><input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} className="size-4 accent-primary" />Se souvenir de moi</label>
-            <button type="button" className="text-accent hover:underline" onClick={() => toast.info("Identifiants par défaut : admin / admin123 (modifiables dans Paramètres)")}>Mot de passe oublié ?</button>
           </div>
           <button className="btn-glow h-12 w-full rounded-xl text-base font-semibold">Se connecter</button>
         </div>
         <svg className="pointer-events-none absolute inset-x-0 bottom-0 h-24 w-full" viewBox="0 0 400 100" preserveAspectRatio="none">
-          <defs><linearGradient id="w" x1="0" x2="1"><stop offset="0" stopColor="var(--primary-deep)" /><stop offset="1" stopColor="var(--primary-glow)" /></linearGradient></defs>
-          <path d="M0 70 C 90 20, 180 100, 270 50 S 400 40, 400 40 V100 H0Z" fill="url(#w)" opacity=".35" />
-          <path d="M0 85 C 120 45, 220 110, 400 60 V100 H0Z" fill="url(#w)" opacity=".6" />
+          <path d="M0 70 C 90 20, 180 100, 270 50 S 400 40, 400 40 V100 H0Z" fill="var(--primary)" opacity=".12" />
+          <path d="M0 85 C 120 45, 220 110, 400 60 V100 H0Z" fill="var(--primary)" opacity=".2" />
         </svg>
       </form>
     </div>
