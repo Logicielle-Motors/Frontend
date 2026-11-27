@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { Search, Plus, Minus, Trash2, ShoppingCart, Package } from "lucide-react";
 import { toast } from "sonner";
 import { actions, useDB, type Sale } from "@/lib/store";
-import { ar } from "@/lib/format";
+import { ar, errorText, tx } from "@/lib/format";
 import { Btn, Empty, PageHeader, Panel } from "@/components/app/kit";
 import { ReceiptModal } from "@/components/app/Receipt";
 import { cn } from "@/lib/utils";
@@ -12,6 +12,8 @@ export const Route = createFileRoute("/_app/pos")({ head: () => ({ meta: [{ titl
 
 function POS() {
   const d = useDB();
+  const language = d.settings.language;
+  const msg = (fr: string, mg: string) => tx(language, fr, mg);
   const [q, setQ] = useState(""); const [cat, setCat] = useState("");
   const [cart, setCart] = useState<Record<string, number>>({});
   const [received, setReceived] = useState("");
@@ -24,25 +26,25 @@ function POS() {
   const change = rec - total;
   const setQty = (id: string, qty: number) => {
     const p = d.products.find((x) => x.id === id); if (!p) return;
-    if (qty > p.qty) { toast.error(`Stock insuffisant (disponible : ${p.qty})`); return; }
+    if (qty > p.qty) { toast.error(msg(`Stock insuffisant (disponible : ${p.qty})`, `Tsy ampy ny tahiry (misy ${p.qty})`)); return; }
     setCart((c) => { const n = { ...c }; if (qty <= 0) delete n[id]; else n[id] = qty; return n; });
   };
   const validate = () => {
     try {
       const s = actions.createSale(lines.map((l) => ({ productId: l.p!.id, qty: l.qty })), rec);
-      setSale(s); setCart({}); setReceived(""); toast.success(`Vente ${s.number} enregistrée`);
-    } catch (e) { toast.error((e as Error).message); }
+      setSale(s); setCart({}); setReceived(""); toast.success(msg(`Vente ${s.number} enregistrée`, `Voatahiry ny varotra ${s.number}`));
+    } catch (e) { toast.error(errorText(e, language)); }
   };
   return (
     <>
-      <PageHeader title="Point de vente" subtitle="Encaissement rapide" />
+      <PageHeader title={msg("Point de vente", "Fivarotana")} subtitle={msg("Encaissement rapide", "Fandraisana vola haingana")} />
       <div className="grid gap-4 xl:grid-cols-[1fr_380px]">
         <div>
           <div className="mb-4 flex flex-wrap gap-2">
             <div className="relative min-w-60 flex-1"><Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-              <input className="field !pl-9" placeholder="Rechercher une pièce (nom, référence, modèle…)" value={q} onChange={(e) => setQ(e.target.value)} /></div>
+              <input className="field !pl-9" placeholder={msg("Rechercher une pièce (nom, référence, modèle…)", "Mitadiava kojakoja (anarana, laharana, modely…)")} value={q} onChange={(e) => setQ(e.target.value)} /></div>
             <select className="field !w-auto" value={cat} onChange={(e) => setCat(e.target.value)}>
-              <option value="">Toutes catégories</option>{d.settings.categories.map((c) => <option key={c}>{c}</option>)}</select>
+              <option value="">{msg("Toutes les catégories", "Ny sokajy rehetra")}</option>{d.settings.categories.map((c) => <option key={c}>{c}</option>)}</select>
           </div>
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3 2xl:grid-cols-4">
             {list.map((p) => (
@@ -55,19 +57,19 @@ function POS() {
                 <p className="text-xs text-muted-foreground">{p.category}</p>
                 <div className="mt-2 flex items-center justify-between">
                   <span className="font-semibold text-gradient">{ar(p.sellPrice)}</span>
-                  <span className={cn("text-xs", p.qty <= p.minQty ? "text-warning" : "text-muted-foreground")}>Stock : {p.qty}</span>
+                  <span className={cn("text-xs", p.qty <= p.minQty ? "text-warning" : "text-muted-foreground")}>{msg("Stock", "Tahiry")} : {p.qty}</span>
                 </div>
               </button>
             ))}
           </div>
-          {!list.length && <Empty text="Aucun produit trouvé" />}
+          {!list.length && <Empty text={msg("Aucun produit trouvé", "Tsy nahitana entana")} />}
         </div>
-        <Panel className="h-fit xl:sticky xl:top-6" title="Panier" right={<ShoppingCart className="size-4 text-muted-foreground" />}>
+        <Panel className="h-fit xl:sticky xl:top-6" title={msg("Panier", "Harona")} right={<ShoppingCart className="size-4 text-muted-foreground" />}>
           <div className="max-h-80 space-y-2 overflow-y-auto">
             {lines.map(({ p, qty }) => (
               <div key={p!.id} className="rounded-lg bg-background/50 p-3">
                 <div className="flex justify-between gap-2"><p className="text-sm font-medium">{p!.name}</p>
-                  <button onClick={() => setQty(p!.id, 0)} className="text-muted-foreground hover:text-destructive" aria-label="Retirer"><Trash2 className="size-4" /></button></div>
+                  <button onClick={() => setQty(p!.id, 0)} className="text-muted-foreground hover:text-destructive" aria-label={msg("Retirer", "Esory")}><Trash2 className="size-4" /></button></div>
                 <div className="mt-2 flex items-center justify-between">
                   <div className="flex items-center gap-1">
                     <button className="grid size-7 place-items-center rounded-md bg-secondary" onClick={() => setQty(p!.id, qty - 1)}><Minus className="size-3" /></button>
@@ -78,15 +80,15 @@ function POS() {
                 </div>
               </div>
             ))}
-            {!lines.length && <Empty text="Cliquez sur un produit pour l'ajouter" />}
+            {!lines.length && <Empty text={msg("Cliquez sur un produit pour l'ajouter", "Tsindrio ny entana iray mba hampidirana azy")} />}
           </div>
           <div className="mt-4 space-y-3 border-t border-border pt-4">
-            <div className="flex items-center justify-between text-lg font-semibold"><span>Total à payer</span><span className="text-gradient">{ar(total)}</span></div>
-            <input className="field !h-12 text-lg" type="number" placeholder="Montant reçu (Ar)" value={received} onChange={(e) => setReceived(e.target.value)} />
+            <div className="flex items-center justify-between text-lg font-semibold"><span>{msg("Total à payer", "Fitambarany haloa")}</span><span className="text-gradient">{ar(total)}</span></div>
+            <input className="field !h-12 text-lg" type="number" placeholder={msg("Montant reçu (Ar)", "Vola voaray (Ar)")} value={received} onChange={(e) => setReceived(e.target.value)} />
             <div className={cn("flex justify-between rounded-lg p-3 font-semibold", change >= 0 ? "bg-success/15 text-success" : "bg-destructive/15 text-destructive")}>
-              <span>Monnaie à rendre</span><span>{received ? ar(Math.max(change, 0)) : "—"}</span></div>
-            {received && change < 0 && <p className="text-xs text-destructive">Il manque {ar(-change)}</p>}
-            <Btn className="h-12 w-full text-base" disabled={!lines.length || rec < total} onClick={validate}>Valider la vente</Btn>
+              <span>{msg("Monnaie à rendre", "Vola haverina")}</span><span>{received ? ar(Math.max(change, 0)) : "—"}</span></div>
+            {received && change < 0 && <p className="text-xs text-destructive">{msg("Il manque", "Mbola tsy ampy")} {ar(-change)}</p>}
+            <Btn className="h-12 w-full text-base" disabled={!lines.length || rec < total} onClick={validate}>{msg("Valider la vente", "Hamarino ny varotra")}</Btn>
           </div>
         </Panel>
       </div>
